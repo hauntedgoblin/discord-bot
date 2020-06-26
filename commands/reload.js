@@ -1,3 +1,6 @@
+const Discord = require('discord.js');
+const { prefix } = require('../config/config.json');
+
 module.exports = {
     name: 'reload',
     aliases: ['refresh'],
@@ -10,10 +13,15 @@ module.exports = {
         const command = message.client.commands.get(commandName)
             || message.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
-        if (!command) return (
-            message.channel.send(`There is no command with name or alias 
-            \`${commandName}\`, ${message.author}!`)
-        );
+        if (!command) {
+            let msg = new Discord.MessageEmbed()
+                .setColor('#0099FF')
+                .setDescription(`There is no command with name or alias 
+                \`${commandName}\`, ${message.author}!`);
+            message.channel.send(msg);
+            return;
+        };
+                    
 
         delete require.cache[require.resolve(`./${command.name}.js`)];
 
@@ -22,9 +30,15 @@ module.exports = {
             message.client.commands.set(newCommand.name, newCommand);
         } catch (error) {
             console.log(error);
-            message.channel.send(`There was an error while reloading a command \`${command.name}\`:\n\`${error.message}\``);
+            let msg = new Discord.MessageEmbed()
+                .setColor('#0099FF')
+                .setDescription(`There was an error while reloading a command \`${prefix}${command.name}\`:\n\`${error.message}\``);
+            message.channel.send(msg);
         };
-
-        message.channel.send(`Command \`${command.name}\` was reloaded!`);
+        
+        let msg = new Discord.MessageEmbed()
+            .setColor('#0099FF')
+            .setDescription(`Command \`${prefix}${command.name}\` was reloaded!`);
+        message.channel.send(msg);
     },
 };
