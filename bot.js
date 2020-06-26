@@ -86,8 +86,8 @@ client.on('message', message => {
             
             let msg = new Discord.MessageEmbed()
                 .setColor('#0099FF')
-                .setDescription(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the 
-                \`${command.name}\` command.`);
+                .setDescription(`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the 
+                \`${prefix}${command.name}\` command.`);
             return message.reply(msg);
         };
     };
