@@ -17,9 +17,7 @@ for (const file of commandFiles) {
 // Enables cooldowns on commands
 const cooldowns = new Discord.Collection();
 
-
 client.login(token);
-
 
 client.once('ready', () => {
     console.log(`${client.user.tag} has logged in.`);
