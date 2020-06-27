@@ -10,6 +10,16 @@ module.exports = {
     execute(message, args) {
         // console.log('Kicked member');
 
+        // set permissions for command usage
+        if (!message.member.roles.cache.has(moderator_id)) {
+            let msg = new Discord.MessageEmbed()
+                .setColor('#0099FF')
+                .setDescription(`${message.author}, you are not authorized to use that command.`);
+            message.channel.send(msg);
+            message.delete();
+            return;
+        };
+
         if (!args.length) {
             let msg = new Discord.MessageEmbed()
                 .setColor('#0099FF')

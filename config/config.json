@@ -4,5 +4,10 @@
     "link": "https://discordapp.com/oauth2/authorize?client_id=726143386356154448&scope=bot&permissions=8",
     "verification_channel_id": "726249481728950322",
     "verification_role_id": "726249094267273256",
-    "guest_role_id": "726251800469962782"
+    "guest_role_id": "726251800469962782",
+    "general_channel_id": "719340982994468928",
+    "authorized_roles": {
+        "moderator_id": "726269807531524098",
+        "verified_id": "726249094267273256"
+    }
 }

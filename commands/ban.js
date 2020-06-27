@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { prefix } = require('../config/config.json');
+const { prefix, authorized_roles: { moderator_id } } = require('../config/config.json');
 
 module.exports = {
     name: 'ban',
@@ -9,6 +9,16 @@ module.exports = {
     guildOnly: true,
     execute(message, args) {
         // console.log('Kicked member');
+
+        // set permissions for command usage
+        if(!message.member.roles.cache.has(moderator_id)) {
+            let msg = new Discord.MessageEmbed()
+                .setColor('#0099FF')
+                .setDescription(`${message.author}, you are not authorized to use that command.`);
+            message.channel.send(msg);
+            message.delete();
+            return;
+        };
 
         if (args.length < 3) {
             let msg = new Discord.MessageEmbed()

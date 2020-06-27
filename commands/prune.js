@@ -9,6 +9,17 @@ module.exports = {
     cooldown: 0,
     guildOnly: true,
     execute(message, args) {
+
+        // set command permissions
+        if (!message.member.roles.cache.has(moderator_id)) {
+            let msg = new Discord.MessageEmbed()
+                .setColor('#0099FF')
+                .setDescription(`${message.author}, you are not authorized to use that command.`);
+            message.channel.send(msg);
+            message.delete();
+            return;
+        };
+
         var amount = parseInt(args[0]);
         if (message.toString() === `${prefix}cls` && isNaN(amount)) {
             message.channel.bulkDelete(100,true);

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const Filter = require('bad-words')
-const { token, prefix, verification_channel_id } = require('./config/config.json');
+const { token, prefix, verification_channel_id, guest_role_id } = require('./config/config.json');
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -137,7 +137,7 @@ client.on('message', message => {
 // Assign temp role on server join
 // Using the 'verify' command will remove this role and give access to the rest of the server.
 client.on('guildMemberAdd', (guildMember) => {
-    guildMember.roles.add(tempRole);
+    guildMember.roles.add(guest_role_id);
 });
 
 
