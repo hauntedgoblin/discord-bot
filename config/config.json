@@ -1,5 +1,5 @@
 {
-    "token": ${ BOT_TOKEN },
+    "token": "NzI2MTQzMzg2MzU2MTU0NDQ4.XvbI1w.Snx3Hu_xEIgEDozDoEvVuf2etrM",
     "prefix": "-",
     "link": "https://discordapp.com/oauth2/authorize?client_id=726143386356154448&scope=bot&permissions=8",
     "verification_channel_id": "726249481728950322",
