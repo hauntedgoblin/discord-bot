@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const { authorized_roles: { moderator_id }} = require('../config/config.json');
 
 module.exports = {
     name: 'embed',

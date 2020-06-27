@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { prefix } = require('../config/config.json');
+const { prefix, authorized_roles: { moderator_id } } = require('../config/config.json');
 
 module.exports = {
     name: 'kick',

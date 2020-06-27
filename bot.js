@@ -5,7 +5,7 @@ const { token, prefix, verification_channel_id, guest_role_id } = require('./con
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
-let filter = new Filter( {placeHolder: '-'});
+let filter = new Filter();
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
