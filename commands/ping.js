@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'ping',
     description: 'Ping the bot.',
-    usage: '<test>',
+    usage: ' ',
     cooldown: 60,
     guildOnly: false,
     execute(message, args) {
