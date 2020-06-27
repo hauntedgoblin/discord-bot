@@ -69,7 +69,6 @@ client.on('message', message => {
         return message.author.send(msg);
     };
     
-
     // Check if command can only be used inside server.
     if (command.guildOnly && message.channel.type !== 'text') {
         let msg = new Discord.MessageEmbed()
@@ -77,7 +76,6 @@ client.on('message', message => {
             .setDescription('I can\'t execute that command inside DMs!');
         return message.channel.send(msg);
     };
-
 
     // Check if command usage exists, and sends usage if necessary.
     if (command.args && !args.length) {
@@ -122,7 +120,6 @@ client.on('message', message => {
     timestamps.set(message.author.id, now);
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
-
     // Execute command
     try {
         command.execute(message, args);
@@ -132,18 +129,11 @@ client.on('message', message => {
     };
 });
 
-
-
 // Assign temp role on server join
 // Using the 'verify' command will remove this role and give access to the rest of the server.
 client.on('guildMemberAdd', (guildMember) => {
     guildMember.roles.add(guest_role_id);
 });
-
-
-
-
-
 
 // Fetch event info using terminal
 client.on('raw', event => {
