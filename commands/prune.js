@@ -10,11 +10,11 @@ module.exports = {
     guildOnly: true,
     execute(message, args) {
 
+        let msg = new Discord.MessageEmbed().setColor('#0099FF');
+
         // set command permissions
         if (!message.member.roles.cache.has(moderator_id)) {
-            let msg = new Discord.MessageEmbed()
-                .setColor('#0099FF')
-                .setDescription(`${message.author}, you are not authorized to use that command.`);
+            msg.setDescription(`${message.author}, you are not authorized to use that command.`);
             message.channel.send(msg);
             message.delete();
             return;
@@ -25,31 +25,23 @@ module.exports = {
             message.channel.bulkDelete(100,true);
         } else {
             if (isNaN(amount)) {
-                let msg = new Discord.MessageEmbed()
-                    .setColor('#0099FF')
-                    .setDescription('Please enter a number of messages to remove.');
+                msg.setDescription('Please enter a number of messages to remove.');
                 return message.channel.send(msg);
             } else if (amount < 1 || amount > 100) {
-                let msg = new Discord.MessageEmbed()
-                    .setColor('#0099FF')
-                    .setDescription('Number of messages to delete must not exceed 100.');
+                msg.setDescription('Number of messages to delete must not exceed 100.');
                 return message.channel.send(msg);
             } else {
                 if (amount === 100) {
                     message.channel.bulkDelete(amount, true).catch(err => {
                         console.error(err);
-                        let msg = new Discord.MessageEmbed()
-                            .setColor('#0099FF')
-                            .setDescription('Error deleting messages.');
+                        msg.setDescription('Error deleting messages.');
                         message.channel.send(msg);
                     });
                 } else {
                     amount++;
                     message.channel.bulkDelete(amount, true).catch(err => {
                         console.error(err);
-                        let msg = new Discord.MessageEmbed()
-                            .setColor('#0099FF')
-                            .setDescription('Error deleting messages.');
+                        msg.setDescription('Error deleting messages.');
                         message.channel.send(msg);                        
                     });
                 };

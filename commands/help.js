@@ -9,6 +9,8 @@ module.exports = {
     cooldown: 5,
     guildOnly: false,
     execute(message, args) {
+        let msg = new Discord.MessageEmbed().setColor('#0099FF');
+
         const data = [];
         const { commands } = message.client;
 
@@ -16,23 +18,16 @@ module.exports = {
             data.push('Here\'s a list of all my commands:');
             data.push(commands.map(command => `${prefix}${command.name}`).join('\n'));
             data.push(`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
-
-            let msg = new Discord.MessageEmbed()
-                .setColor('#0099FF')
-                .setDescription(data, { split: true });
+            msg.setDescription(data, { split: true });
             return message.author.send(msg)
                 .then(() => {
                     if (message.channel.type === 'dm') return;
-                    let msg = new Discord.MessageEmbed()
-                        .setColor('#0099FF')
-                        .setDescription('I\'ve sent you a DM with all my commands!');
+                    mgs.setDescription('I\'ve sent you a DM with all my commands!');
                     message.reply(msg);
                 })
                 .catch(error => {
                     console.error(`Could not send help DM to ${message.author.tag}.\n`, error);
-                    let msg = new Discord.MessageEmbed()
-                        .setColor('#0099FF')
-                        .setDescription('it seems like I can\'t DM you! Do you have DMs disabled?');
+                    msg.setDescription('it seems like I can\'t DM you! Do you have DMs disabled?');
                     message.reply(msg);
                 });
         };
@@ -41,9 +36,7 @@ module.exports = {
         const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
 
         if (!command) {
-            let msg = new Discord.MessageEmbed()
-                .setColor('#0099FF')
-                .setDescription('That\'s not a valid command!');
+            msg.setDescription('That\'s not a valid command!');
             return message.reply(msg);
         };
 

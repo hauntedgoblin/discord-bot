@@ -8,41 +8,34 @@ module.exports = {
     cooldown: 0,
     guildOnly: true,
     execute(message, args) {
-        // console.log('Kicked member');
+        let msg = new Discord.MessageEmbed().setColor('#0099FF');
 
         // set permissions for command usage
         if(!message.member.roles.cache.has(moderator_id)) {
-            let msg = new Discord.MessageEmbed()
-                .setColor('#0099FF')
-                .setDescription(`${message.author}, you are not authorized to use that command.`);
+            msg.setDescription(`${message.author}, you are not authorized to use that command.`);
             message.channel.send(msg);
             message.delete();
             return;
         };
 
-        if (args.length < 3) {
-            let msg = new Discord.MessageEmbed()
-                .setColor('#0099FF')
-                .setDescription('You must provide a user AND a reason for banning them.');
-            message.reply(msg);
+        if (args.length < 2) {
+            msg.setColor('#0099FF')
+                .setDescription(`${message.author}, you must provide a user AND a reason for banning them.`);
+            message.channel.send(msg);
             return;
         } else {
             let banUser = message.mentions.members.first();
             let banReason = args.join(' ').slice(22);
             
             if (!banUser) {
-                let msg = new Discord.MessageEmbed()
-                    .setColor('#0099FF')
-                    .setDescription('User not found. Please try again');
-                message.reply(msg);
+                msg.setDescription(`${message.author}, that user was not found. Please try again`);
+                message.channel.send(msg);
             } else {
-                if (!banReason) return('You must provide a reason for banning this user.');
+                if (!banReason) return(`${message.author}, you must provide a reason for banning this user.`);
                 let data = [`${banUser} has been banned from \`${message.guild.name}\`.`];
                 data.push(`\nReason: ${banReason}`)
                 data.push(`\nAppeal your ban by DMing ${message.author}`)
-                let msg = new Discord.MessageEmbed()
-                    .setColor('#0099FF')
-                    .setDescription(data);
+                msg.setDescription(data);
                 message.channel.send(msg);
 
                 banUser.send(msg);

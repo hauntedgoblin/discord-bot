@@ -9,18 +9,18 @@ module.exports = {
     guildOnly: true,
     execute(message, args) {
 
+        let msg = new Discord.MessageEmbed().setColor('#0099FF');
+
         // set command permissions
         if (!message.member.roles.cache.has(moderator_id)) {
-            let msg = new Discord.MessageEmbed()
-                .setColor('#0099FF')
-                .setDescription(`${message.author}, you are not authorized to use that command.`);
+            
+            msg.setDescription(`${message.author}, you are not authorized to use that command.`);
             message.channel.send(msg);
             message.delete();
             return;
         };
 
-        let msg = new Discord.MessageEmbed()
-            .setColor('#0099FF')
+        msg
             .setTitle('Welcome!')
             .setDescription(`Welcome to ${message.guild.name}! 
                 Please type \`-verify\` to access the rest of the server! :)`);

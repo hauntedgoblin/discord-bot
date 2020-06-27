@@ -28,18 +28,18 @@ client.once('ready', () => {
 // Command Handler
 client.on('message', message => {
 
+let msg = new Discord.MessageEmbed().setColor('#0099FF');
+
 // server-wide message listening - filter bad words -------------------------------
     if (filter.isProfane(message.content)) {
         if (message.channel.type === 'dm') {
             return;
         } else {
-            let embed = new Discord.MessageEmbed()
-                .setColor('#0099FF')
-                .setDescription(`Your message was deleted for profanity.
+            msg.setDescription(`Your message was deleted for profanity.
                     Refrain from swearing in \`${message.guild.name}\` to avoid a kick/ban.\n
                     Deleted message: \`${message.content}\`
                     Deleted from: ${message.channel}`);
-            message.author.send(embed);
+            message.author.send(msg);
             message.delete();
         };
     };
@@ -62,18 +62,14 @@ client.on('message', message => {
         || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
     if (!command) {
-        let msg = new Discord.MessageEmbed()
-            .setColor('#0099FF')
-            .setDescription(`Hi, ${message.author}! Just letting you know that ${message.content} isn't a 
+        msg.setDescription(`Hi, ${message.author}! Just letting you know that ${message.content} isn't a 
                             command I recognize. Type \`${prefix}help\` for a list of things I can do! :)`);
         return message.author.send(msg);
     };
     
     // Check if command can only be used inside server.
     if (command.guildOnly && message.channel.type !== 'text') {
-        let msg = new Discord.MessageEmbed()
-            .setColor('#0099FF')
-            .setDescription('I can\'t execute that command inside DMs!');
+        msg.setDescription('I can\'t execute that command inside DMs!');
         return message.channel.send(msg);
     };
 
@@ -85,9 +81,7 @@ client.on('message', message => {
             reply += `${message.author}\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
         };
 
-        let msg = new Discord.MessageEmbed()
-            .setColor('#0099FF')
-            .setDescription(reply);
+        msg.setDescription(reply);
         return message.reply(msg);
     };
 
@@ -109,9 +103,7 @@ client.on('message', message => {
         if (now < expirationTime) {
             const timeLeft = (expirationTime - now) / 1000;
             
-            let msg = new Discord.MessageEmbed()
-                .setColor('#0099FF')
-                .setDescription(`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the 
+            msg.setDescription(`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the 
                 \`${prefix}${command.name}\` command.`);
             return message.reply(msg);
         };
@@ -125,7 +117,7 @@ client.on('message', message => {
         command.execute(message, args);
     } catch (error) {
         console.error(error);
-        message.reply('Error executing command.');
+        msg.setDescription(`${message.author}, error executing command.`);
     };
 });
 
