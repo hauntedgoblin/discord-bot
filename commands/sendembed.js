@@ -25,5 +25,6 @@ module.exports = {
             .setDescription(`Welcome to ${message.guild.name}! 
                 Please type \`-verify\` to access the rest of the server! :)`);
         message.channel.send(msg);
+        message.delete()
     },
 };
