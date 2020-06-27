@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { prefix } = require('../config/config.json');
+const { prefix } = require('C:/Users/c0401/Documents/Coding Projects/discord/bot_v2_config.json');
 
 module.exports = {
     name: 'help',

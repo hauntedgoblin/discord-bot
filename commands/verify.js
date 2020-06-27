@@ -2,7 +2,8 @@ const Discord = require('discord.js');
 const { verification_channel_id, 
         verification_role_id, 
         guest_role_id, 
-        general_channel_id } = require('../config/config.json');
+        general_channel_id } = require(
+            'C:/Users/c0401/Documents/Coding Projects/discord/bot_v2_config.json');
 
 module.exports = {
     name: 'verify',
