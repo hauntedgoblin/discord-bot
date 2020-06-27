@@ -5,7 +5,7 @@ module.exports = {
     name: 'mod',
     description: 'Give moderator role to a user',
     usage: '<@user>',
-    cooldown: 60,
+    cooldown: 0,
     guildOnly: true,
     execute(message, args) {
         let msg = new Discord.MessageEmbed().setColor('#0099FF');
@@ -14,6 +14,9 @@ module.exports = {
 
         modUser.roles.add(moderator_id);
 
-        msg.setDescription(`Congratulations ${modUser}! You are now a moderator.`);
+        msg.setDescription(`Congratulations ${modUser}! 
+            You are now a moderator in \`${message.guild.name}\`.`);
+
+        modUser.send(msg);
     },
 };
