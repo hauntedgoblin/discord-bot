@@ -1,10 +1,11 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const { token, prefix } = require('./config/config.json')
+const Filter = require('bad-words')
+const { token, prefix } = require('./config/config.json');
 
 const client = new Discord.Client();
-
 client.commands = new Discord.Collection();
+let filter = new Filter( {placeHolder: '-'});
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -26,6 +27,22 @@ client.once('ready', () => {
 
 // Command Handler
 client.on('message', message => {
+
+    if (filter.isProfane(message.content)) {
+        if (message.channel.type === 'dm') {
+            return;
+        } else {
+            let embed = new Discord.MessageEmbed()
+                .setColor('#0099FF')
+                .setDescription(`Your message was deleted for profanity.
+                    Refrain from swearing in \`${message.guild.name}\` to avoid a kick/ban.\n
+                    Deleted message: \`${message.content}\`
+                    Deleted from: ${message.channel}`);
+            message.author.send(embed);
+            message.delete();
+        };
+    };
+    
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
     const args = message.content.slice(prefix.length).split(/ +/);
