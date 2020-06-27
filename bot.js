@@ -1,7 +1,7 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const Filter = require('bad-words')
-const { token, prefix } = require('./config/config.json');
+const { token, prefix, verification_channel_id } = require('./config/config.json');
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -28,6 +28,7 @@ client.once('ready', () => {
 // Command Handler
 client.on('message', message => {
 
+// server-wide message listening - filter bad words -------------------------------
     if (filter.isProfane(message.content)) {
         if (message.channel.type === 'dm') {
             return;
@@ -43,6 +44,15 @@ client.on('message', message => {
         };
     };
     
+    // Controls verification channel messages
+    if (message.channel.id === verification_channel_id) {
+        if (message.content !== `${prefix}verify`) {
+            message.delete();
+        };
+    };
+// ---------------------------------------------------------------------------------
+
+// begin listening for command calls -----------------------------------------------
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
     const args = message.content.slice(prefix.length).split(/ +/);
@@ -112,6 +122,8 @@ client.on('message', message => {
     timestamps.set(message.author.id, now);
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
+
+    // Execute command
     try {
         command.execute(message, args);
     } catch (error) {
@@ -120,7 +132,20 @@ client.on('message', message => {
     };
 });
 
-// Fetch event info using terminal
-client.on('raw', event => {
-    console.log(event);
+
+
+// Assign temp role on server join
+// Using the 'verify' command will remove this role and give access to the rest of the server.
+client.on('guildMemberAdd', (guildMember) => {
+    guildMember.roles.add(tempRole);
 });
+
+
+
+
+
+
+// Fetch event info using terminal
+// client.on('raw', event => {
+//     console.log(event);
+// });

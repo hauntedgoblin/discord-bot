@@ -1,5 +1,8 @@
 {
     "token": "NzI2MTQzMzg2MzU2MTU0NDQ4.XvY_vg.tzoJxjdTqURu94QuOFY3hY7GJRY",
     "prefix": "-",
-    "add-link": "https://discordapp.com/oauth2/authorize?client_id=726143386356154448&scope=bot&permissions=8"
+    "link": "https://discordapp.com/oauth2/authorize?client_id=726143386356154448&scope=bot&permissions=8",
+    "verification_channel_id": "726249481728950322",
+    "verification_role_id": "726249094267273256",
+    "guest_role_id": "726251800469962782"
 }
