@@ -11,7 +11,7 @@ module.exports = {
     usage: ' ',
     cooldown: 0,
     guildOnly: true,
-    execute(message, args) {
+    execute(message, args, client) {
         if (message.channel.id === verification_channel_id) {
             message.member.roles.add(verification_role_id);
             message.member.roles.remove(guest_role_id);

@@ -63,16 +63,20 @@ let msg = new Discord.MessageEmbed().setColor('#0099FF');
     if (!command) {
         msg.setDescription(`Hi, ${message.author}! Just letting you know that ${message.content} isn't a 
                             command I recognize. Type \`${prefix}help\` for a list of things I can do! :)`);
-        return message.author.send(msg);
+        return message.channel.send(msg).then(m => {
+            m.delete({timeout: 3000});
+        });
     };
     
     // Check if command can only be used inside server.
     if (command.guildOnly && message.channel.type !== 'text') {
         msg.setDescription('I can\'t execute that command inside DMs!');
-        return message.channel.send(msg);
+        return message.channel.send(msg).then(m => {
+            m.delete({ timeout: 3000 });
+        });;
     };
 
-    // Check if command usage exists, and sends usage if necessary.
+    // Check if command arguments exist, and sends usage if necessary.
     if (command.args && !args.length) {
         let reply = `You didn't provide any arguments, ${message.author}!`;
 
@@ -81,7 +85,9 @@ let msg = new Discord.MessageEmbed().setColor('#0099FF');
         };
 
         msg.setDescription(reply);
-        return message.reply(msg);
+        return message.reply(msg).then(m => {
+            m.delete({ timeout: 3000 });
+        });;
     };
 
     // check if cooldowns collection has command in it
@@ -104,7 +110,9 @@ let msg = new Discord.MessageEmbed().setColor('#0099FF');
             
             msg.setDescription(`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the 
                 \`${prefix}${command.name}\` command.`);
-            return message.reply(msg);
+            return message.reply(msg).then(m => {
+                m.delete({ timeout: 3000 });
+            });;
         };
     };
 
@@ -113,10 +121,13 @@ let msg = new Discord.MessageEmbed().setColor('#0099FF');
 
     // Execute command
     try {
-        command.execute(message, args);
+        command.execute(message, args, client);
     } catch (error) {
         console.error(error);
         msg.setDescription(`${message.author}, error executing command.`);
+        message.channel.send(msg).then(m => {
+            m.delete({ timeout: 3000 });
+        });
     };
 });
 
@@ -127,6 +138,6 @@ client.on('guildMemberAdd', (guildMember) => {
 });
 
 // Fetch event info using terminal
-client.on('raw', event => {
-    console.log(event);
-});
+// client.on('raw', event => {
+//     console.log(event);
+// });

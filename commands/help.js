@@ -9,7 +9,7 @@ module.exports = {
     usage: '[command name]',
     cooldown: 60,
     guildOnly: false,
-    execute(message, args) {
+    execute(message, args, client) {
         let msg = new Discord.MessageEmbed().setColor('#0099FF');
 
         const data = [];
@@ -24,12 +24,16 @@ module.exports = {
                 .then(() => {
                     if (message.channel.type === 'dm') return;
                     mgs.setDescription('I\'ve sent you a DM with all my commands!');
-                    message.reply(msg);
+                    message.reply(msg).then(m => {
+                        m.delete({ timeout: 3000 });
+                    });
                 })
                 .catch(error => {
                     console.error(`Could not send help DM to ${message.author.tag}.\n`, error);
                     msg.setDescription('it seems like I can\'t DM you! Do you have DMs disabled?');
-                    message.reply(msg);
+                    message.reply(msg).then(m => {
+                        m.delete({ timeout: 3000 });
+                    });
                 });
         };
 
@@ -38,7 +42,9 @@ module.exports = {
 
         if (!command) {
             msg.setDescription('That\'s not a valid command!');
-            return message.reply(msg);
+            return message.reply(msg).then(m => {
+                m.delete({ timeout: 3000 });
+            });
         };
 
         data.push(`**Command:** ${command.name}`);
@@ -49,7 +55,8 @@ module.exports = {
         if (!command.guildOnly) data.push(`**DM-Enabled:** Yes`)
         data.push(`**Cooldown:** ${command.cooldown || 0} second(s)`);
 
-        message.channel.send(data, { split: true });
-
+        message.channel.send(data, { split: true }).then(m => {
+            m.delete({ timeout: 3000 });
+        });
     },
 };

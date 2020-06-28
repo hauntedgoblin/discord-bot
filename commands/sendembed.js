@@ -1,6 +1,4 @@
 const Discord = require('discord.js');
-const { authorized_roles: { moderator_id } } = 
-    require('C:/Users/c0401/Documents/Coding Projects/discord/bot_v2_config.json');
 
 module.exports = {
     name: 'embed',
@@ -8,24 +6,27 @@ module.exports = {
     usage: ' ',
     cooldown: 0,
     guildOnly: true,
-    execute(message, args) {
+    execute(message, args, client) {
 
         let msg = new Discord.MessageEmbed().setColor('#0099FF');
 
-        // set command permissions
-        if (!message.member.roles.cache.has(moderator_id)) {
-            
+        // set permissions for command usage
+        moderator_role = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'moderator')
+        if (!message.member.roles.cache.has(moderator_role.id)) {
             msg.setDescription(`${message.author}, you are not authorized to use that command.`);
-            message.channel.send(msg);
-            message.delete();
+            message.channel.send(msg)
+            .then(message.delete())
+            .then(m => {
+                m.delete({ timeout: 3000 });
+            });
             return;
         };
 
         msg
-            .setTitle('Welcome!')
-            .setDescription(`Welcome to ${message.guild.name}! 
-                Please type \`-verify\` to access the rest of the server! :)`);
-        message.channel.send(msg);
-        message.delete()
+            .setTitle('Embed title')
+            .setTimestamp()
+            .setFooter(client.user.username)
+
+        message.channel.send(msg).then(message.delete());
     },
 };
