@@ -1,7 +1,8 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const Filter = require('bad-words')
-const { token, prefix, verification_channel_id, guest_role_id } = require('C:/Users/c0401/Documents/Coding Projects/discord/bot_v2_config.json');
+const { token, prefix, verification_channel_id, guest_role_id } = 
+    require('C:/Users/c0401/Documents/Coding Projects/discord/bot_v2_config.json');
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();

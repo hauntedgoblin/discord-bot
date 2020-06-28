@@ -1,12 +1,13 @@
 const Discord = require('discord.js');
-const { prefix } = require('C:/Users/c0401/Documents/Coding Projects/discord/bot_v2_config.json');
+const { prefix } = 
+    require('C:/Users/c0401/Documents/Coding Projects/discord/bot_v2_config.json');
 
 module.exports = {
     name: 'help',
     aliases: ['commands'],
     description: 'List of all commands or info about a command.',
     usage: '[command name]',
-    cooldown: 5,
+    cooldown: 60,
     guildOnly: false,
     execute(message, args) {
         let msg = new Discord.MessageEmbed().setColor('#0099FF');
