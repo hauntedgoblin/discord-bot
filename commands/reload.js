@@ -7,8 +7,9 @@ module.exports = {
     aliases: ['refresh'],
     description: 'Reloads a command',
     usage: '<command name>',
+    args: '<command name>',
     cooldown: 0,
-    guildOnly: false,
+    guildOnly: true,
     execute(message, args, client) {
         let msg = new Discord.MessageEmbed().setColor('#0099FF');
 
@@ -19,8 +20,10 @@ module.exports = {
         if (!command) {
            msg.setDescription(`There is no command with name or alias 
                 \`${commandName}\`, ${message.author}!`);
-            message.channel.send(msg).then(m => {
-                m.delete({ timeout: 3000 });
+            message.channel.send(msg)
+                .then(message.delete())
+                .then(m => {
+                    m.delete({ timeout: 3000 });
             });
             return;
         };
@@ -34,14 +37,18 @@ module.exports = {
             console.log(error);
             msg.setDescription(`There was an error while reloading a command 
                 \`${prefix}${command.name}\`:\n\`${error.message}\``);
-            message.channel.send(msg).then(m => {
-                m.delete({ timeout: 3000 });
+            message.channel.send(msg)
+                .then(message.delete())
+                .then(m => {
+                    m.delete({ timeout: 3000 });
             });
         };
         
         msg.setDescription(`Command \`${prefix}${command.name}\` was reloaded!`);
-        message.channel.send(msg).then(m => {
-            m.delete({ timeout: 3000 });
+        message.channel.send(msg)
+            .then(message.delete())
+            .then(m => {
+                m.delete({ timeout: 3000 });
         });
     },
 };

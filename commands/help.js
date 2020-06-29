@@ -7,7 +7,7 @@ module.exports = {
     aliases: ['commands'],
     description: 'List of all commands or info about a command.',
     usage: '[command name]',
-    cooldown: 60,
+    cooldown: 0,
     guildOnly: false,
     execute(message, args, client) {
         let msg = new Discord.MessageEmbed().setColor('#0099FF');
@@ -23,14 +23,16 @@ module.exports = {
             return message.author.send(msg)
                 .then(() => {
                     if (message.channel.type === 'dm') return;
-                    mgs.setDescription('I\'ve sent you a DM with all my commands!');
-                    message.reply(msg).then(m => {
-                        m.delete({ timeout: 3000 });
+                    msg.setDescription('I\'ve sent you a DM with all my commands!');
+                    message.reply(msg)
+                        .then(message.delete())
+                        .then(m => {
+                            m.delete({ timeout: 3000 });
                     });
                 })
                 .catch(error => {
                     console.error(`Could not send help DM to ${message.author.tag}.\n`, error);
-                    msg.setDescription('it seems like I can\'t DM you! Do you have DMs disabled?');
+                    msg.setDescription('It seems like I can\'t DM you! Do you have DMs disabled?');
                     message.reply(msg).then(m => {
                         m.delete({ timeout: 3000 });
                     });
@@ -42,8 +44,10 @@ module.exports = {
 
         if (!command) {
             msg.setDescription('That\'s not a valid command!');
-            return message.reply(msg).then(m => {
-                m.delete({ timeout: 3000 });
+            return message.reply(msg)
+                .then(message.delete())
+                .then(m => {
+                    m.delete({ timeout: 3000 });
             });
         };
 
@@ -52,11 +56,15 @@ module.exports = {
         if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(', ')}`);
         if (command.description) data.push(`**Description:** ${command.description}`);
         if (command.usage) data.push(`**Usage:** ${prefix}${command.name} ${command.usage}`);
-        if (!command.guildOnly) data.push(`**DM-Enabled:** Yes`)
+        if (command.restricted) data.push(`**Restricted:** ${command.restricted}`)
+        if (!command.guildOnly) data.push(`**DM-Enabled:** Yes`);
         data.push(`**Cooldown:** ${command.cooldown || 0} second(s)`);
+        msg.setDescription(data);
 
-        message.channel.send(data, { split: true }).then(m => {
-            m.delete({ timeout: 3000 });
+        message.channel.send(msg)
+            .then(message.delete())
+            .then(m => {
+                m.delete({ timeout: 8000 });
         });
     },
 };

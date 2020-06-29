@@ -7,6 +7,7 @@ module.exports = {
     aliases: ['e'],
     description: 'Evaluate and run JavaScript code.',
     usage: '<line to evaluate>',
+    restricted: true,
     cooldown: 0,
     guildOnly: false,
     execute(message, args, client) {
