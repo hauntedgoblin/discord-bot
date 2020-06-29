@@ -1,6 +1,4 @@
 const Discord = require('discord.js');
-const { prefix } = 
-    require('C:/Users/c0401/Documents/Coding Projects/discord/bot_v2_config.json');
 
 module.exports = {
     name: 'help',
@@ -9,7 +7,7 @@ module.exports = {
     usage: '[command name]',
     cooldown: 0,
     guildOnly: false,
-    execute(message, args, client) {
+    execute(message, args, client, prefix) {
         let msg = new Discord.MessageEmbed().setColor('#0099FF');
 
         const data = [];

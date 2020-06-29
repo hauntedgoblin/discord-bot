@@ -1,6 +1,4 @@
 const Discord = require('discord.js');
-const { prefix } = 
-    require('C:/Users/c0401/Documents/Coding Projects/discord/bot_v2_config.json');
 
 module.exports = {
     name: 'reload',
@@ -10,7 +8,7 @@ module.exports = {
     args: '<command name>',
     cooldown: 0,
     guildOnly: true,
-    execute(message, args, client) {
+    execute(message, args, client, prefix) {
         let msg = new Discord.MessageEmbed().setColor('#0099FF');
 
         const commandName = args[0].toLowerCase();

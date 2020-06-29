@@ -9,7 +9,7 @@ module.exports = {
     restricted: true,
     cooldown: 0,
     guildOnly: true,
-    execute(message, args, client) {
+    execute(message, args, client, prefix) {
         let msg = new Discord.MessageEmbed().setColor('#0099FF');
 
         if (args.length <= 1) {

@@ -1,9 +1,5 @@
 const Discord = require('discord.js');
-const { verification_channel_id, 
-        verification_role_id, 
-        guest_role_id, 
-        general_channel_id } = require(
-            'C:/Users/c0401/Documents/Coding Projects/discord/bot_v2_config.json');
+const { verification_channel_id } = require('../config/config.json');
 
 module.exports = {
     name: 'verify',
@@ -13,16 +9,22 @@ module.exports = {
     guildOnly: true,
     execute(message, args, client) {
         if (message.channel.id === verification_channel_id) {
-            message.member.roles.add(verification_role_id);
-            message.member.roles.remove(guest_role_id);
+            let guestRole = message.guild.roles.cache.find(
+                role => role.name.toLowerCase() === 'guest')
+
+            let verifiedRole = message.guild.roles.cache.find(
+                role => role.name.toLowerCase() === 'verified')
+
+            message.member.roles.add(verifiedRole.id);
+            message.member.roles.remove(guestRole.id);
             message.delete();
 
             let msg = new Discord.MessageEmbed()
                 .setColor('#0099FF')
                 .setDescription(`Everyone welcome ${message.author} to the server!`);
-            message.guild.channels.cache.get(general_channel_id).send(msg);
+            message.guild.channels.cache.find(channel => channel.name === 'general').send(msg);
 
-        } else if (message.member.roles.cache.has(verification_role_id) 
+        } else if (message.member.roles.cache.has(verifiedRole.id) 
             || message.channel.id !== verification_channel_id) {
             message.delete()
         };

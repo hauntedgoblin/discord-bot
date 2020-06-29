@@ -1,6 +1,4 @@
 const Discord = require('discord.js');
-const { prefix } = 
-    require(`C:/Users/c0401/Documents/Coding Projects/discord/bot_v2_config.json`);
 
 module.exports = {
     name: 'eval',
@@ -10,7 +8,7 @@ module.exports = {
     restricted: true,
     cooldown: 0,
     guildOnly: false,
-    execute(message, args, client) {
+    execute(message, args, client, prefix) {
         let msg = new Discord.MessageEmbed().setColor('#0099FF');
         
         if (message.author.id !== '213814266912964610') {

@@ -1,8 +1,8 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const Filter = require('bad-words')
-const { token, prefix, verification_channel_id, guest_role_id } = 
-    require('C:/Users/c0401/Documents/Coding Projects/discord/bot_v2_config.json');
+const { token, prefix, verification_channel_id } = 
+    require('./config/config.json');
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -140,7 +140,7 @@ let msg = new Discord.MessageEmbed().setColor('#0099FF');
 
     // Command executor
     try {
-        command.execute(message, args, client);
+        command.execute(message, args, client, prefix);
     } catch (error) {
         console.error(error);
         msg.setDescription(`${message.author}, error executing command.`);
@@ -153,7 +153,8 @@ let msg = new Discord.MessageEmbed().setColor('#0099FF');
 // Assign temp role on server join
 // Using the 'verify' command will remove this role and give access to the rest of the server.
 client.on('guildMemberAdd', (guildMember) => {
-    guildMember.roles.add(guest_role_id);
+    let guestRole = guildMember.guild.roles.cache.find(role => role.name.toLowerCase() === 'guest');
+    guildMember.roles.give(guestRole.id);
 });
 
 // Fetch event info using terminal
