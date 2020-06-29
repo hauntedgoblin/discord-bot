@@ -47,9 +47,5 @@ module.exports = {
         } catch (err) {
             message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
         };
-
-        
-        // console.log('hello eval');
-        
     },
 };
