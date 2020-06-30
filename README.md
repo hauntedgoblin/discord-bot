@@ -11,7 +11,7 @@ Hello this is my homemade Discord moderation bot. I started it to learn more abo
 **5. Reload:** Reloads a command if it isn't working properly.  
 **6. Embed:** Sends an embedded message to the text channel. Currently, the message must be customized directly in the _embed.js_ file, but I am working on making it more dynamic.  
 **7. Ping:** Pings the bot and gets a response back. Can be used to test if bot is online.  
-**8. Role:** Gives a user a role. Cannot remove roles, but I am planning on implementing that as well.  
+**8. Role:** Gives or takes a role from a user.  
 **9. Verify:** Gives users a verified role and removes temporary "_guest_" role given to them on server join. Basically a server verification system command.  
 
 ## Files  

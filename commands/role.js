@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
 
 module.exports = {
-    name: 'give',
-    aliases: ['role', 'give', 'add', 'giverole', 'addrole'],
+    name: 'role',
+    aliases: ['give', 'add', 'giverole', 'roleadd', 'remove', 'removerole'],
     description: 'Give a role to a user',
     usage: '<@user> <role>',
     args: "<@user> <role>",
@@ -22,8 +22,8 @@ module.exports = {
             return;
         };
 
-        giveUser = message.mentions.members.first();
-        if (!giveUser) {
+        let user = message.mentions.members.first();
+        if (!user) {
             msg.setDescription('That user wasn\'t found, please try again.');
             message.channel.send(msg)
                 .then(message.delete())
@@ -33,7 +33,7 @@ module.exports = {
             return;
         };
 
-        role = message.guild.roles.cache.find(role => role.name === args[1]);
+        let role = message.guild.roles.cache.find(role => role.name === args[1]);
         if (!role) {
             msg.setDescription('That role wasn\'t found. please try again');
             message.channel.send(msg)
@@ -44,10 +44,10 @@ module.exports = {
             return;
         } ;
 
-
-        giveUser.roles.add(role.id)
+        if (!user.roles.cache.has(role.id)) {
+        user.roles.add(role.id)
             .then( () => {
-                msg.setDescription(`${giveUser} given \`${role.name}\` role!`);
+                msg.setDescription(`${user} given \`${role.name}\` role!`);
                 message.channel.send(msg)
                     .then(message.delete())
                     .then(m => {
@@ -62,5 +62,21 @@ module.exports = {
                         m.delete({ timeout: 3000 });
                 });
             });
+        } else {
+            user.roles.remove(role.id)
+            msg.setDescription(`\`${role.name}\` role removed from ${user}.`)
+            message.channel.send(msg)
+                .then(message.delete())
+                .then(m => {
+                    m.delete({ timeout: 4000 });
+                })
+                .catch(err => {
+                    msg.setDescription(`Error removing role: ${err}`);
+                    message.channel.send(msg)
+                        .then(m => {
+                            m.delete({ timeout: 4000 });
+                        });
+            });
+        };
     },
 };
