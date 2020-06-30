@@ -65,7 +65,7 @@ let msg = new Discord.MessageEmbed().setColor('#0099FF');
     // if command isn't recognized, let author know
         if (!command) {
         msg.setDescription(
-            `Hi, ${message.author}! Just letting you know that \`${message.content}\` isn't a 
+            `Hi, ${message.author}! Just letting you know that \`${prefix}${commandName}\` isn't a 
             command I recognize. Type \`${prefix}help\` for a list of things I can do! :)`);
         return message.channel.send(msg)
             .then(message.delete())
