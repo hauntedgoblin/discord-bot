@@ -28,3 +28,8 @@ Standard _.json_ files that specify dependencies and the like.
 
 #### node_modules
 All the modules needed to make the _.js_ files work, namely **Discord.JS** and a package called "__bad-words__" thats used to filter messages for explicit content.  
+
+
+
+#### Bot Status
+**Status:** Online, running on a Raspberry Pi using nodemon to keep it online through updates. 
