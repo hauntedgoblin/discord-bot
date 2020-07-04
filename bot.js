@@ -158,6 +158,6 @@ client.on('guildMemberAdd', (guildMember) => {
 });
 
 // Fetch event info using terminal
-// client.on('raw', event => {
-//     console.log(event);
-// });
+client.on('raw', event => {
+    console.log(event);
+});
