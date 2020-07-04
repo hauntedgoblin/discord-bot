@@ -9,7 +9,7 @@ module.exports = {
     execute(message, args, client, prefix) {
         let msg = new Discord.MessageEmbed()
             .setColor('#0099FF')
-            .setDescription('pong!');
+            .setDescription('pong! :) hello from r-pi server!');
         message.channel.send(msg);
     },
 };
