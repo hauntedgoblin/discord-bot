@@ -16,6 +16,10 @@ module.exports = {
             It was written and is maintained by <@213814266912964610> (hauntedgoblin on GitHub).
             Please DM <@213814266912964610> with any questions, requests, etc.`)
         
-        message.channel.send(msg);
+        message.channel.send(msg)
+            .then(message.delete())
+            .then(m => {
+                m.delete({ timeout: 5000 });
+            });
     },
 };
