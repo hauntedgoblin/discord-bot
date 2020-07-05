@@ -157,7 +157,7 @@ client.on('message', message => {
 // Using the 'verify' command will remove this role and give access to the rest of the server.
 client.on('guildMemberAdd', (guildMember) => {
     let guestRole = guildMember.guild.roles.cache.find(role => role.name.toLowerCase() === 'guest');
-    guildMember.roles.give(guestRole.id);
+    guildMember.roles.add(guestRole.id);
 });
 
 // Fetch event info using terminal
