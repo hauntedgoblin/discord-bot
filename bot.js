@@ -1,12 +1,10 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const Filter = require('bad-words')
-const { token, prefix, verification_channel_id } = 
+const { token, prefix, verification_channel_id, filter } = 
     require('./config/config.json');
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
-let filter = new Filter();
 
 // Get command files and load them into collection. 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -28,22 +26,27 @@ client.once('ready', () => {
 // Command Handler
 client.on('message', message => {
 
-let msg = new Discord.MessageEmbed().setColor('#0099FF');
+    // construct embedded message for bot responses
+    let msg = new Discord.MessageEmbed().setColor('#0099FF');
 
     // server-wide message listening - filter bad words 
-    if (filter.isProfane(message.content)) {
-        if (message.channel.type === 'dm') {
-            return;
-        } else {
-            msg.setDescription(`Your message was deleted for profanity.
+    for (let i = 0; i < filter.length; i++) {
+        if (message.content.toLowerCase().includes(filter[i])) {
+            if (message.channel.type === 'dm') {
+                return;
+            } else {
+                msg.setDescription(`Your message was deleted for profanity.
                     Refrain from swearing in \`${message.guild.name}\` to avoid a kick/ban.\n
                     Deleted message: \`${message.content}\`
                     Deleted from: ${message.channel}`);
-            message.author.send(msg);
-            message.delete();
+                message.author.send(msg);
+                message.delete();
+            };        
         };
     };
-    
+
+
+
     // removes messages from specified verification channel
     if (message.channel.id === verification_channel_id) {
         if (message.content !== `${prefix}verify`) {

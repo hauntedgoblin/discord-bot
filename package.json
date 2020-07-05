@@ -4,7 +4,6 @@
   "description": "",
   "main": "bot.js",
   "dependencies": {
-    "bad-words": "^3.0.3",
     "discord.js": "^12.2.0",
     "ms": "^2.1.2",
     "nodemon": "^2.0.4"
