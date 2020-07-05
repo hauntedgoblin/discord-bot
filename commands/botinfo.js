@@ -4,7 +4,7 @@ module.exports = {
     name: 'botinfo',
     description: 'Get link to bot GitHub repo.',
     usage: ' ',
-    cooldown: 60,
+    cooldown: 300,
     guildOnly: false,
     execute(message, args, client, prefix) {
         let msg = new Discord.MessageEmbed()
@@ -16,10 +16,6 @@ module.exports = {
             It was written and is maintained by <@213814266912964610> (hauntedgoblin on GitHub).
             Please DM <@213814266912964610> with any questions, requests, etc.`)
         
-        message.channel.send(msg)
-            .then(message.delete())
-            .then(m => {
-                m.delete({ timeout: 5000 });
-            });
+        message.channel.send(msg).then(message.delete());
     },
 };

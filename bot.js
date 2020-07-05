@@ -128,13 +128,23 @@ client.on('message', message => {
         if (now < expirationTime) {
             const timeLeft = (expirationTime - now) / 1000;
             
-            msg.setDescription(`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the 
+            if (timeLeft > 60) {
+                msg.setDescription(`Please wait ${(timeLeft/60).toFixed()} more minutes(s) before reusing the 
                 \`${prefix}${command.name}\` command.`);
-            return message.reply(msg)
-                .then(message.delete())
-                .then(m => {
-                    m.delete({ timeout: 3000 });
-            });;
+                return message.reply(msg)
+                    .then(message.delete())
+                    .then(m => {
+                        m.delete({ timeout: 3000 });
+                    });
+            } else {
+                msg.setDescription(`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the 
+                \`${prefix}${command.name}\` command.`);
+                return message.reply(msg)
+                    .then(message.delete())
+                    .then(m => {
+                        m.delete({ timeout: 3000 });
+                    });
+            };
         };
     };
 
