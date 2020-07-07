@@ -4,6 +4,7 @@ module.exports = {
     name: 'botinfo',
     description: 'Get link to bot GitHub repo.',
     usage: ' ',
+    restricted: false,
     cooldown: 300,
     guildOnly: false,
     execute(message, args, client, prefix) {

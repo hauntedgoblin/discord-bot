@@ -5,6 +5,7 @@ module.exports = {
     name: 'verify',
     description: `Gives user the 'verified' role and access to the server.`,
     usage: ' ',
+    restricted: false,
     cooldown: 0,
     guildOnly: true,
     execute(message, args, client) {
