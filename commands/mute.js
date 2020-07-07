@@ -6,6 +6,7 @@ module.exports = {
     description: 'Temporarily mserver-mute a user.',
     usage: '<@user> <minutes> <reason>',
     args: '<@user> <minutes> <reason>',
+    restricted: true,
     cooldown: 0,
     guildOnly: true,
     execute(message, args, client, prefix) {

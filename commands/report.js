@@ -5,6 +5,7 @@ module.exports = {
     description: 'Report rulebreaking activity. Requires a user and a reason',
     usage: '<@user> <reason>',
     args: '<@user> <reason>',
+    restricted: false,
     cooldown: 0,
     guildOnly: true,
     execute(message, args, client, prefix) {

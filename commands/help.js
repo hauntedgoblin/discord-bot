@@ -5,6 +5,7 @@ module.exports = {
     aliases: ['commands'],
     description: 'List of all commands or info about a command.',
     usage: '[command name]',
+    restricted: false,
     cooldown: 0,
     guildOnly: false,
     execute(message, args, client, prefix) {
