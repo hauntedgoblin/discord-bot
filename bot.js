@@ -172,7 +172,7 @@ client.on('guildMemberAdd', (guildMember) => {
     guildMember.roles.add(guestRole.id);
 });
 
-// verification handler 
+// verification handler - ony active on bot testing server
 // gives verified role and removes guest role on message reaction in 
 // verification channel
 client.on('messageReactionAdd', async (reaction, user) => {
