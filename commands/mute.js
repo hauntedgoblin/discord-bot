@@ -14,7 +14,7 @@ module.exports = {
 
         let muteUser = message.mentions.members.first();
         if (!muteUser) return;
-        let muteRole = message.guild.roles.cache.find(role => role.name === 'muted');
+        let muteRole = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'muted');
         if (!muteRole) return;
         let muteLength = args[1]
         if (!muteLength) return;

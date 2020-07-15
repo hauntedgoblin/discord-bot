@@ -15,7 +15,7 @@ module.exports = {
             The source code for this bot can be found at 
             https://github.com/hauntedgoblin/discord-bot.\n
             It was written and is maintained by <@213814266912964610> (hauntedgoblin on GitHub).
-            Please DM <@213814266912964610> with any questions, requests, etc.`)
+            Please DM <@213814266912964610> with any questions, requests, etc. :)`)
         
         message.channel.send(msg).then(message.delete());
     },
