@@ -1,6 +1,6 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const { token, prefix, verification_channel_id, filter } = 
+const { token, prefix, filter } = 
     require('./config/config.json');
 
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
@@ -46,11 +46,6 @@ client.on('message', message => {
     };
 
 
-
-    // removes messages from specified verification channel
-    if (message.channel.id === verification_channel_id) {
-        message.delete();
-    };
     // ---------------------------------------------------------------------------------
 
     // begin listening for command calls 
