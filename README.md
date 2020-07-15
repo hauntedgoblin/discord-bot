@@ -32,5 +32,5 @@ All the modules needed to make the _.js_ files work, namely **Discord.JS** and a
 
 ## Add bot link
 While it should be able to work on any server, I wouldn't recommend adding it without talking to me first. I built a lot of the functionality for one of my servers, so some things may break depending on the usage. 
-If you completely understand the code and how it will work on your server, go for it. Otherwise, if you really want this bot on your server for some reason, find me on Discord at Cameron#2466 and shoot me a DM. 
+If you completely understand the code and how it will work on your server, go for it. Otherwise, if you really want this bot on your server for some reason, find me on Discord at Cameron#2466 and shoot me a DM.  
 ***Link:*** https://discordapp.com/oauth2/authorize?client_id=726143386356154448&scope=bot&permissions=2146958847  
