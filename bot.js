@@ -24,7 +24,7 @@ client.once('ready', () => {
 });
 
 // Command Handler
-client.on('message', async message => {
+client.on('message', message => {
 
     // construct embedded message for bot responses
     let msg = new Discord.MessageEmbed().setColor('#0099FF');
@@ -73,15 +73,18 @@ client.on('message', async message => {
         return message.channel.send(msg)
             .then(message.delete())
             .then(m => {
-            m.delete({timeout: 4000});
+                m.delete({timeout: 4000});
         });
     };
     
     // Check if command can only be used inside server.
     if (command.guildOnly && message.channel.type !== 'text') {
         msg.setDescription('I can\'t execute that command inside DMs!');
-        const m_1 = await message.channel.send(msg);
-        m_1.delete({ timeout: 3000 });;
+        message.channel.send(msg)
+            .then(m => { 
+                m.delete({ timeout: 3000 });
+            });
+        return;
     };
 
     // set permissions for command usage
