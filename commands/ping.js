@@ -9,6 +9,7 @@ module.exports = {
     guildOnly: false,
     execute(message, args, client, prefix) {
         let msg = new Discord.MessageEmbed()
+            .setTimestamp()
             .setColor('#0099FF')
             .setDescription('pong!');
         message.channel.send(msg);

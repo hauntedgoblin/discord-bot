@@ -10,7 +10,7 @@ module.exports = {
     cooldown: 0,
     guildOnly: true,
     execute(message, args, client, prefix) {
-        let msg = new Discord.MessageEmbed().setColor('#0099FF');
+        let msg = new Discord.MessageEmbed().setColor('#0099FF').setTimestamp();
 
         let muteUser = message.mentions.members.first();
         if (!muteUser) return;

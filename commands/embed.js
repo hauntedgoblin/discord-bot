@@ -13,6 +13,7 @@ module.exports = {
 
         if (message.author.id !== '213814266912964610') {
             msg
+                .setTimestamp()
                 .setDescription(`${message.author}, you are not authorized to use that command.`);
             message.channel.send(msg)
                 .then(m => { m.delete({ timeout: 2500 }) });

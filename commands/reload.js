@@ -10,7 +10,7 @@ module.exports = {
     cooldown: 15,
     guildOnly: true,
     execute(message, args, client, prefix) {
-        let msg = new Discord.MessageEmbed().setColor('#0099FF');
+        let msg = new Discord.MessageEmbed().setColor('#0099FF').setTimestamp();
 
         const commandName = args[0].toLowerCase();
         const command = message.client.commands.get(commandName)

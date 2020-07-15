@@ -10,7 +10,7 @@ module.exports = {
     guildOnly: true,
     execute(message, args, client, prefix) {
 
-        let msg = new Discord.MessageEmbed().setColor('#0099FF');
+        let msg = new Discord.MessageEmbed().setColor('#0099FF').setTimestamp();
 
 
         var amount = parseInt(args[0]);

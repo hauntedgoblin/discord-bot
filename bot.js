@@ -27,7 +27,7 @@ client.once('ready', () => {
 client.on('message', message => {
 
     // construct embedded message for bot responses
-    let msg = new Discord.MessageEmbed().setColor('#0099FF');
+    let msg = new Discord.MessageEmbed().setColor('#0099FF').setTimestamp();
 
     // server-wide message listening - filter bad words 
     for (let i = 0; i < filter.length; i++) {
