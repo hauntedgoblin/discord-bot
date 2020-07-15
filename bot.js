@@ -160,31 +160,6 @@ client.on('message', message => {
     };
 });
 
-// Assign temporary guest role on server join
-client.on('guildMemberAdd', (guildMember) => {
-    let guestRole = guildMember.guild.roles.cache.find(role => role.name.toLowerCase() === 'guest');
-    if (!guestRole) return;
-    guildMember.roles.add(guestRole.id);
-});
-
-// verification handler - ony active on bot testing server
-// gives verified role and removes guest role on message reaction in 
-// verification channel
-client.on('messageReactionAdd', async (reaction, user) => {
-    if (reaction.message.partial) await reaction.message.fetch();
-    if (reaction.partial) await reaction.fetch();
-
-    if (user.bot) return;
-    if (!reaction.message.guild) return;
-    if (reaction.message.channel.id ==='726249481728950322') {
-        if (reaction.emoji.name === '✅') {
-            await reaction.message.guild.members.cache.get(user.id).roles.add('726249094267273256')
-                .then(console.log(`verified role given to ${user.tag}`))
-                .then(reaction.users.remove(user.id))
-                .then(user.presence.member.roles.remove('726251800469962782'))
-        };
-    };
-});
 
 // Fetch event info using terminal
 client.on('raw', event => {
