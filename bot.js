@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 const { token, prefix, verification_channel_id, filter } = 
     require('./config/config.json');
 
-const client = new Discord.Client();
+const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 client.commands = new Discord.Collection();
 
 // Get command files and load them into collection. 
@@ -24,7 +24,7 @@ client.once('ready', () => {
 });
 
 // Command Handler
-client.on('message', message => {
+client.on('message', async message => {
 
     // construct embedded message for bot responses
     let msg = new Discord.MessageEmbed().setColor('#0099FF');
@@ -48,11 +48,11 @@ client.on('message', message => {
 
 
     // removes messages from specified verification channel
-    if (message.channel.id === verification_channel_id) {
-        if (message.content !== `${prefix}verify`) {
-            message.delete();
-        };
-    };
+    // if (message.channel.id === verification_channel_id) {
+    //     if (message.content !== `${prefix}verify`) {
+    //         message.delete();
+    //     };
+    // };
 // ---------------------------------------------------------------------------------
 
     // begin listening for command calls 
@@ -80,9 +80,8 @@ client.on('message', message => {
     // Check if command can only be used inside server.
     if (command.guildOnly && message.channel.type !== 'text') {
         msg.setDescription('I can\'t execute that command inside DMs!');
-        return message.channel.send(msg).then(m => {
-            m.delete({ timeout: 3000 });
-        });;
+        const m_1 = await message.channel.send(msg);
+        m_1.delete({ timeout: 3000 });;
     };
 
     // set permissions for command usage
@@ -165,14 +164,32 @@ client.on('message', message => {
     };
 });
 
-// Assign temp role on server join
-// Using the 'verify' command will remove this role and give access to the rest of the server.
+// Assign temporary guest role on server join
 client.on('guildMemberAdd', (guildMember) => {
     let guestRole = guildMember.guild.roles.cache.find(role => role.name.toLowerCase() === 'guest');
     guildMember.roles.add(guestRole.id);
 });
 
-// Fetch event info using terminal
-client.on('raw', event => {
-    console.log(event);
+// verification handler 
+// gives verified role and removes guest role on message reaction in 
+// verification channel
+client.on('messageReactionAdd', async (reaction, user) => {
+    if (reaction.message.partial) await reaction.message.fetch();
+    if (reaction.partial) await reaction.fetch();
+
+    if (user.bot) return;
+    if (!reaction.message.guild) return;
+    if (reaction.message.channel.id ==='726249481728950322') {
+        if (reaction.emoji.name === '✅') {
+            await reaction.message.guild.members.cache.get(user.id).roles.add('726249094267273256')
+                .then(console.log(`verified role given to ${user.tag}`))
+                .then(reaction.users.remove(user.id))
+                .then(user.presence.member.roles.remove('726251800469962782'))
+        };
+    };
 });
+
+// Fetch event info using terminal
+// client.on('raw', event => {
+//     console.log(event);
+// });
