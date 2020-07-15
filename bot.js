@@ -48,12 +48,10 @@ client.on('message', message => {
 
 
     // removes messages from specified verification channel
-    // if (message.channel.id === verification_channel_id) {
-    //     if (message.content !== `${prefix}verify`) {
-    //         message.delete();
-    //     };
-    // };
-// ---------------------------------------------------------------------------------
+    if (message.channel.id === verification_channel_id) {
+        message.delete();
+    };
+    // ---------------------------------------------------------------------------------
 
     // begin listening for command calls 
     if (!message.content.startsWith(prefix) || message.author.bot) return;
@@ -170,6 +168,7 @@ client.on('message', message => {
 // Assign temporary guest role on server join
 client.on('guildMemberAdd', (guildMember) => {
     let guestRole = guildMember.guild.roles.cache.find(role => role.name.toLowerCase() === 'guest');
+    if (!guestRole) return;
     guildMember.roles.add(guestRole.id);
 });
 
@@ -193,6 +192,6 @@ client.on('messageReactionAdd', async (reaction, user) => {
 });
 
 // Fetch event info using terminal
-// client.on('raw', event => {
-//     console.log(event);
-// });
+client.on('raw', event => {
+    console.log(event);
+});
