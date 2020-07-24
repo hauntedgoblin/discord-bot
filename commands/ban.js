@@ -25,7 +25,7 @@ module.exports = {
             if (!banReason) return(`${message.author}, you must provide a reason for banning this user.`);
             let data = [`${banUser} has been banned from \`${message.guild.name}\`.`];
             data.push(`\nReason: ${banReason}`)
-            data.push(`\nAppeal your ban by DMing ${message.author}`)
+            data.push(`\nAppeal your ban by DMing ${message.author} <@272552547150069760>`)
             msg.setDescription(data);
             message.channel.send(msg);
 
