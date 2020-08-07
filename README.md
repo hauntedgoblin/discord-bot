@@ -1,6 +1,6 @@
 # Custom Discord Moderator Bot
 
-Hello this is my homemade Discord moderation bot. I started it to learn more about JavaScript and Discord.JS. I don't have it running on a server permanently, so don't add it to any servers unless you want a useless bot hanging around. 
+Hello this is my homemade Discord moderation bot! Feel free to take a look at the ReadMe and the source code. Feel free to reach out to me on Discord (Cameron#2466) with any questions and I will get back to you as soon as possible! :)
 
 ## Commands
 
@@ -31,6 +31,4 @@ All the modules needed to make the _.js_ files work, namely **Discord.JS** and a
 
 
 ## Add bot link
-While it should be able to work on any server, I wouldn't recommend adding it without talking to me first. I built a lot of the functionality for one of my servers, so some things may break depending on the usage. 
-If you completely understand the code and how it will work on your server, go for it. Otherwise, if you really want this bot on your server for some reason, find me on Discord at Cameron#2466 and shoot me a DM.  
 ***Link:*** https://discordapp.com/oauth2/authorize?client_id=726143386356154448&scope=bot&permissions=2146958847  
