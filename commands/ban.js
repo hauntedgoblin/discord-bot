@@ -12,7 +12,7 @@ module.exports = {
         let msg = new Discord.MessageEmbed().setColor('#0099FF').setTimestamp();
 
         let banUser = message.mentions.members.first();
-        let banReason = args.join(' ').slice(22);
+        let banReason = args.slice(1).join(' ');
         
         if (!banUser) {
             msg.setDescription(`${message.author}, that user was not found. Please try again`);
@@ -25,7 +25,7 @@ module.exports = {
             if (!banReason) return(`${message.author}, you must provide a reason for banning this user.`);
             let data = [`${banUser} has been banned from \`${message.guild.name}\`.`];
             data.push(`\nReason: ${banReason}`)
-            data.push(`\nAppeal your ban by DMing ${message.author} <@272552547150069760>`)
+            data.push(`\nTo appeal your ban, contact a server administrator.`)
             msg.setDescription(data);
             message.channel.send(msg);
 

@@ -11,7 +11,7 @@ module.exports = {
 
         let msg = new Discord.MessageEmbed().setColor('#0099FF');
 
-        if (message.author.id !== '213814266912964610') {
+        if (message.author.id !== client.bot_owner) {
             msg
                 .setTimestamp()
                 .setDescription(`${message.author}, you are not authorized to use that command.`);

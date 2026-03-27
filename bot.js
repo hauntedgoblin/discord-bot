@@ -1,10 +1,11 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const { token, prefix, filter } = 
+const { token, prefix, filter, bot_owner } =
     require('./config/config.json');
 
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 client.commands = new Discord.Collection();
+client.bot_owner = bot_owner;
 
 // Get command files and load them into collection. 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -82,7 +83,7 @@ client.on('message', message => {
 
     // set permissions for command usage
     let moderator_role = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'moderator')
-    if (!message.member.roles.cache.has(moderator_role.id) && command.restricted) {
+    if ((!moderator_role || !message.member.roles.cache.has(moderator_role.id)) && command.restricted) {
         msg.setDescription(`${message.author}, you are not authorized to use that command.`);
         message.channel.send(msg)
             .then(message.delete())
@@ -161,7 +162,3 @@ client.on('message', message => {
 });
 
 
-// Fetch event info using terminal
-client.on('raw', event => {
-    console.log(event);
-});

@@ -15,7 +15,7 @@ module.exports = {
         const { commands } = message.client;
 
         if(!args.length) {
-            if (message.member.roles.cache.has(moderator_role.id)) {
+            if (moderator_role && message.member.roles.cache.has(moderator_role.id)) {
                 data.push('Here\'s a list of all my commands:\n');
                 data.push(commands.map(command => `${prefix}${command.name}`).join('\n'));
                 data.push(`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
@@ -82,7 +82,7 @@ module.exports = {
         };
 
 
-        if (!message.member.roles.cache.has(moderator_role.id) && command.restricted) {
+        if ((!moderator_role || !message.member.roles.cache.has(moderator_role.id)) && command.restricted) {
             msg.setDescription(`${message.author}, that\'s not a valid command!`);
             message.channel.send(msg)
                 .then(message.delete())

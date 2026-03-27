@@ -18,6 +18,7 @@ module.exports = {
         if (!muteRole) return;
         let muteLength = args[1]
         if (!muteLength) return;
+        if (!/^\d+$/.test(muteLength) || parseInt(muteLength) <= 0) return;
         let muteReason = args.slice(2).join(' ');
         if (!muteReason) return;
 

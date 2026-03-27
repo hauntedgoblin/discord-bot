@@ -13,7 +13,7 @@ module.exports = {
         let msg = new Discord.MessageEmbed().setColor('#0099FF').setTimestamp();
         
         let reportedUser = message.mentions.members.first();
-        let reportReason = args.join(' ').slice(23);
+        let reportReason = args.slice(1).join(' ');
 
         if (!reportedUser) {
             msg.setDescription('User not found. Please try again');

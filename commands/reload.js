@@ -16,6 +16,14 @@ module.exports = {
         const command = message.client.commands.get(commandName)
             || message.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
+        if (!/^[a-z0-9-]+$/.test(commandName)) {
+            msg.setDescription(`Invalid command name, ${message.author}.`);
+            message.channel.send(msg)
+                .then(message.delete())
+                .then(m => { m.delete({ timeout: 3000 }); });
+            return;
+        }
+
         if (!command) {
            msg.setDescription(`There is no command with name or alias 
                 \`${commandName}\`, ${message.author}!`);

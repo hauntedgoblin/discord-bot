@@ -1,0 +1,6 @@
+{
+    "token": "YOUR_BOT_TOKEN_HERE",
+    "prefix": "!",
+    "bot_owner": "YOUR_DISCORD_USER_ID_HERE",
+    "filter": ["word1", "word2"]
+}

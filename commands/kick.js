@@ -21,7 +21,7 @@ module.exports = {
             });
         } else {
             let data = [`${kickUser} kicked from \`${message.guild.name}\`.`];
-            let kickReason = args.join(' ').slice(22);
+            let kickReason = args.slice(1).join(' ');
             if (kickReason) data.push(`\nReason: ${kickReason}`)
             msg.setDescription(data);
             message.channel.send(msg)

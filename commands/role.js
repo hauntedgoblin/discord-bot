@@ -71,7 +71,8 @@ module.exports = {
                     m.delete({ timeout: 4000 });
                 })
                 .catch(err => {
-                    msg.setDescription(`Error removing role: ${err}`);
+                    console.error('Error removing role:', err);
+                    msg.setDescription(`I couldn't remove that role.`);
                     message.channel.send(msg)
                         .then(m => {
                             m.delete({ timeout: 4000 });
